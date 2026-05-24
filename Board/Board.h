@@ -5,6 +5,7 @@
 #include <array>
 #include "../Tile/Tile.h"
 #include "../Random/Random.h"
+#include "../Direction/Direction.h"
 
 class Board
 {
@@ -17,17 +18,20 @@ class Board
                 for(int j {}; j < 4; ++j)
                 {
                     ++value; 
-                    m_board[i][j] = value; 
+                    m_tiles[i][j] = value; 
                 }
             }
             
-            m_board[3][3] =  0; //last tile needs to be empty ; 
+            m_tiles[3][3] =  0; //last tile needs to be empty ; 
         }
 
         friend std::ostream& operator <<(std::ostream& out, const Board& board) ;
-    private:
-        std::array<std::array<Tile,4>,4> m_board {};
+        bool operator ==(const Board& board ); 
+        void moveTile(Direction::Type direction); 
+        void randomize();
         
+    private:
+        std::array<std::array<Tile,4>,4> m_tiles {};
 
 }; 
 
